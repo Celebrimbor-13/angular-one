@@ -3,62 +3,25 @@
     <input [(ngModel)]="userInput" type="text" class="form-control" placeholder="Task Name" />
     <select [(ngModel)]="selectValue" name="hardness" id="hardness-lvl" class="form-select">
       <option value="" selected>Select</option>
-      <option *ngFor="let opt of selectOptions" value={{opt}}> {{opt}}</option>
+      <option value="{{difficulty.Easy}}">{{difficulty.Easy}}</option>
+      <option value="{{difficulty.Medium}}">{{difficulty.Medium}}</option>
+      <option value="{{difficulty.Hard}}">{{difficulty.Hard}}</option>
     </select>
     <button (click)="add()" class="btn btn-primary">Add</button>
   </div>
   <div id="content">
-    <div class="card" *ngFor="let cont of content">
+    <div *ngFor="let variant of threeVariants" class="card">
       <div class="card__header">
         <p>
-          <fa-icon [icon]="faBars"></fa-icon>{{cont.state}}
+          <fa-icon [icon]="faBars"></fa-icon>{{variant.title}}
         </p>
       </div>
-      <ul *ngIf="cont.toDo" class="card">
-        <li *ngFor="let li of content[0].toDo; index as i">
-          <div>
-            <p>{{ i + 1 }}.{{ li.userInput }}</p>
-            <div>
-              <button (click)="toProgress(i)" class="btn btn-primary toProgress">
-                <fa-icon [icon]="faAngleRight"></fa-icon>
-              </button>
-              <button (click)="delete(i)" class="btn btn-danger delete">
-                <fa-icon [icon]="faXmark"></fa-icon>
-              </button>
-            </div>
-          </div>
-          <button class="btn btn-primary">{{ li.selectValue }}</button>
-        </li>
-      </ul>
-      <ul *ngIf="cont.progress" class="card">
-        <li *ngFor="let li of content[1].progress; index as i">
-          <div>
-            <p>{{ i + 1 }}.{{ li.userInput }}</p>
-            <div>
-              <button (click)="toToDo(i)" class="btn btn-primary toToDo">
-                <fa-icon [icon]="faAngleLeft"></fa-icon>
-              </button>
-              <button (click)="toDone(i)" class="btn btn-success toDone">
-                <fa-icon [icon]="faAngleRight"></fa-icon>
-              </button>
-            </div>
-          </div>
-          <button class="btn btn-primary">{{ li.selectValue }}</button>
-        </li>
-      </ul>
-      <ul *ngIf="cont.done" class="card">
-        <li *ngFor="let li of content[2].done; index as i">
-          <div>
-            <p>{{ i + 1 }}.{{ li.userInput }}</p>
-            <div>
-              <button (click)="backToProgress(i)" class="btn btn-primary">
-                <fa-icon [icon]="faAngleLeft"></fa-icon>
-              </button>
-            </div>
-          </div>
-          <button class="btn btn-primary">{{ li.selectValue }}</button>
-        </li>
-      </ul>
+      <app-todo *ngIf="variant.toDoWin" [toDoObj]="toDoArr" (toDoArrToParent)="toProgress($event)"></app-todo>
+      <app-progress *ngIf="variant.progressWin" [progressObj]="toProgressArr"
+        (progressArrToParentForToDo)="toToDo($event)" (progressArrToParentForDone)="toDone($event)">
+      </app-progress>
+      <app-done *ngIf="variant.doneWin" [doneObj]="toDoneArr" (DoneArrToParent)="toProgress($event)"></app-done>
+
     </div>
   </div>
 </section>

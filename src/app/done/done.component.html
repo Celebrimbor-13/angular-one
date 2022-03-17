@@ -1,0 +1,16 @@
+<ul class="card">
+    <li *ngFor="let li of doneObj; index as i">
+        <div>
+            <p>{{ i + 1 }}.{{ li.userInput }}</p>
+            <div>
+                <button (click)="backToProgress(i)" class="btn btn-primary">
+                    <fa-icon [icon]="faAngleLeft"></fa-icon>
+                </button>
+
+            </div>
+        </div>
+        <p
+            class="btn-{{li.selectValue == difficulty.Easy? color.Blue: li.selectValue == difficulty.Medium? color.Yellow: color.Red}} hme">
+            {{ li.selectValue }}</p>
+    </li>
+</ul>

@@ -1,19 +1,27 @@
 import { Component } from '@angular/core';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
-import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
-import { faXmark } from '@fortawesome/free-solid-svg-icons';
-import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 
-interface ToDo {
-  userInput: string;
-  selectValue: string;
+export enum Difficulty {
+  Easy = 'Easy',
+  Medium = 'Medium',
+  Hard = 'Hard',
 }
 
-interface Content {
-  state: string;
-  toDo?: ToDo[] | undefined;
-  progress?: ToDo[] | undefined;
-  done?: ToDo[] | undefined;
+export enum Colors {
+  Yellow = 'warning',
+  Red = 'danger',
+  Blue = 'info',
+}
+
+enum States {
+  ToDo = 'To-Do',
+  Progress = 'Progress',
+  Done = 'Done',
+}
+
+export interface AllStateObj {
+  userInput: string;
+  selectValue: string;
 }
 
 @Component({
@@ -22,70 +30,42 @@ interface Content {
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'angular-first-assignement';
   faBars = faBars;
-  faAngleRight = faAngleRight;
-  faAngleLeft = faAngleLeft;
-  faXmark = faXmark;
+  difficulty = Difficulty;
+  states = States;
+
+  threeVariants = [
+    { title: this.states.ToDo, toDoWin: true },
+    { title: this.states.Progress, progressWin: true },
+    { title: this.states.Done, doneWin: true },
+  ];
+
   userInput: string = '';
   selectValue: string = '';
 
-  selectOptions = ['Easy', 'Medium', 'Hard'];
-
-  content: Content[] = [
-    {
-      state: 'To-Do',
-      toDo: [],
-    },
-
-    {
-      state: 'In Progress',
-      progress: [],
-    },
-
-    {
-      state: 'Done',
-      done: [],
-    },
-  ];
+  toDoArr: AllStateObj[] = [];
+  toProgressArr: AllStateObj[] = [];
+  toDoneArr: AllStateObj[] = [];
 
   add() {
-    let toDo = {
+    let toDoObj = {
       userInput: this.userInput,
       selectValue: this.selectValue,
     };
     if (this.userInput && this.selectValue) {
-      this.content[0].toDo?.push(toDo);
+      this.toDoArr.push(toDoObj);
     }
   }
 
-  delete(index: number) {
-    this.content[0].toDo?.splice(index, 1);
+  toProgress(data: AllStateObj[]) {
+    this.toProgressArr.push(...data);
   }
 
-  toProgress(index: number) {
-    let forProgress = this.content[0].toDo?.splice(index, 1);
-    if (forProgress) {
-      this.content[1].progress?.push(...forProgress);
-    }
+  toToDo(data: AllStateObj[]) {
+    this.toDoArr.push(...data);
   }
 
-  toToDo(index: number) {
-    let forToDo = this.content[1]?.progress?.splice(index, 1);
-    if (forToDo) {
-      this.content[0].toDo?.push(...forToDo);
-    }
-  }
-  toDone(index: number) {
-    let forDone = this.content[1]?.progress?.splice(index, 1);
-    if (forDone) {
-      this.content[2].done?.push(...forDone);
-    }
-  }
-  backToProgress(index: number) {
-    let backForProgress = this.content[2]?.done?.splice(index, 1);
-    if (backForProgress) {
-      this.content[1].progress?.push(...backForProgress);
-    }
+  toDone(data: AllStateObj[]) {
+    this.toDoneArr.push(...data);
   }
 }
