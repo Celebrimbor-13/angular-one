@@ -1,0 +1,52 @@
+<ul *ngIf="variant.toDoWin" class="card">
+    <li *ngFor="let li of toDoObj; index as i">
+        <div>
+            <p>{{ i + 1 }}.{{ li.userInput }}</p>
+            <div>
+                <button (click)="deleteItem(i)" class="btn btn-danger">
+                    <fa-icon [icon]="faXmark"></fa-icon>
+                </button>
+                <button (click)="toProgress(i)" class="btn btn-primary">
+                    <fa-icon [icon]="faAngleRight"></fa-icon>
+                </button>
+            </div>
+        </div>
+        <p
+            class="btn-{{li.selectValue == difficulty.Easy? color.Blue: li.selectValue == difficulty.Medium? color.Yellow: color.Red}} hme">
+            {{ li.selectValue }}</p>
+    </li>
+</ul>
+<ul *ngIf="variant.progressWin" class="card">
+    <li *ngFor="let li of progressObj; index as i">
+        <div>
+            <p>{{ i + 1 }}.{{ li.userInput }}</p>
+            <div>
+                <button (click)="backToDo(i)" class="btn btn-success">
+                    <fa-icon [icon]="faAngleLeft"></fa-icon>
+                </button>
+                <button (click)="toDone(i)" class="btn btn-primary">
+                    <fa-icon [icon]="faAngleRight"></fa-icon>
+                </button>
+            </div>
+        </div>
+        <p
+            class="btn-{{li.selectValue == difficulty.Easy? color.Blue: li.selectValue == difficulty.Medium? color.Yellow: color.Red}} hme">
+            {{ li.selectValue }}</p>
+    </li>
+</ul>
+<ul *ngIf="variant.doneWin" class="card">
+    <li *ngFor="let li of doneObj; index as i">
+        <div>
+            <p>{{ i + 1 }}.{{ li.userInput }}</p>
+            <div>
+                <button (click)="backToProgress(i)" class="btn btn-primary">
+                    <fa-icon [icon]="faAngleLeft"></fa-icon>
+                </button>
+
+            </div>
+        </div>
+        <p
+            class="btn-{{li.selectValue == difficulty.Easy? color.Blue: li.selectValue == difficulty.Medium? color.Yellow: color.Red}} hme">
+            {{ li.selectValue }}</p>
+    </li>
+</ul>

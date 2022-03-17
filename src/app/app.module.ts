@@ -5,12 +5,10 @@ import { AppComponent } from './app.component';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule } from '@angular/forms';
-import { TodoComponent } from './todo/todo.component';
-import { ProgressComponent } from './progress/progress.component';
-import { DoneComponent } from './done/done.component';
+import { CardComponent } from './card/card.component';
 
 @NgModule({
-  declarations: [AppComponent, TodoComponent, ProgressComponent, DoneComponent],
+  declarations: [AppComponent, CardComponent],
   imports: [BrowserModule, FontAwesomeModule, FormsModule],
   providers: [],
   bootstrap: [AppComponent],

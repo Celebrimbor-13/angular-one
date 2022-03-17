@@ -16,11 +16,9 @@
           <fa-icon [icon]="faBars"></fa-icon>{{variant.title}}
         </p>
       </div>
-      <app-todo *ngIf="variant.toDoWin" [toDoObj]="toDoArr" (toDoArrToParent)="toProgress($event)"></app-todo>
-      <app-progress *ngIf="variant.progressWin" [progressObj]="toProgressArr"
-        (progressArrToParentForToDo)="toToDo($event)" (progressArrToParentForDone)="toDone($event)">
-      </app-progress>
-      <app-done *ngIf="variant.doneWin" [doneObj]="toDoneArr" (DoneArrToParent)="toProgress($event)"></app-done>
+      <app-card [variant]="variant" [toDoObj]="toDoArr" [progressObj]="toProgressArr" [doneObj]="toDoneArr"
+        (toDoArrToParent)="toProgress($event)" (progressArrToParentForToDo)="toToDo($event)"
+        (progressArrToParentForDone)="toDone($event)" (DoneArrToParent)="toProgress($event)"></app-card>
 
     </div>
   </div>
